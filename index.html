@@ -6,102 +6,199 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Her</title>
 
-  <!-- Locomotive Scroll CSS (required for smooth scroll layout) -->
-  <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.css"
-  />
+  <!-- Google Fonts: intro uses Inter, spiral inherits Courier Prime -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Courier+Prime:wght@400;700&family=Space+Mono:wght@400;700&family=Syne:wght@400..800&display=swap" rel="stylesheet" />
 
-  <!-- Project styles (structural only – no UI colours) -->
+  <!-- Project styles -->
   <link rel="stylesheet" href="./css/style.css" />
 </head>
 
 <body>
 
-  <!--
-    ═══════════════════════════════════════════════════════════════════════════
-    #main  –  Locomotive Scroll root
-    ═══════════════════════════════════════════════════════════════════════════
-    All scrollable content lives inside this element.
-    Locomotive Scroll uses it as the virtual scroll container.
-  -->
-  <div id="main" data-scroll-container>
+  <!-- ═══════════════════════════════════════════════════════════
+       AUDIO (background ambient — wired by main.js)
+  ════════════════════════════════════════════════════════════ -->
+  <audio id="bg-audio" loop>
+    <source src="assets/audio/bg-song.mp3" type="audio/mpeg" />
+  </audio>
 
-    <!--
-      ───────────────────────────────────────────────────────────────────────
-      #page  –  Canvas scroll section
-      ───────────────────────────────────────────────────────────────────────
-      The canvas is pinned here for the duration of the frame animation.
-      GSAP creates a pin-spacer automatically; do NOT add extra height here.
-    -->
-    <section id="page" data-scroll-section>
+  <!-- ═══════════════════════════════════════════════════════════
+       ENTRY GATE
+       Full-screen cover. Slides up via CSS class .hide
+  ════════════════════════════════════════════════════════════ -->
+  <div id="entry-screen">
+    <div class="entry-content">
+      <p class="entry-label">her.</p>
+      <div class="entry-buttons">
+        <button id="btn-sound"  class="entry-btn">enter with sound</button>
+        <button id="btn-no-sound" class="entry-btn">enter without sound</button>
+      </div>
+    </div>
+  </div>
 
-      <!-- Full-screen canvas background – driven by canvas-scroll.js -->
-      <canvas id="canvas-bg"></canvas>
+  <!-- ═══════════════════════════════════════════════════════════
+       FIXED UI LAYER (z-index 999, always above everything)
+  ════════════════════════════════════════════════════════════ -->
+  <div id="ui-layer">
+
+    <!-- Top-centre: spiral • list toggle -->
+    <div id="view-toggle">
+      <button class="toggle-btn active" id="btn-spiral">spiral</button>
+      <span class="toggle-dot">•</span>
+      <button class="toggle-btn" id="btn-list">list</button>
+    </div>
+
+    <!-- Top-right: menu -->
+    <div id="top-right-menu">
+      <button id="menu-btn">menu •</button>
+    </div>
+
+    <!-- Bottom-left: rotating SVG badge -->
+    <div id="bottom-left-badge">
+      <svg viewBox="0 0 100 100" width="180" height="180">
+        <defs>
+          <path id="circlePath"
+            d="M 50,50 m -40,0 a 40,40 0 1,1 80,0 a 40,40 0 1,1 -80,0" />
+        </defs>
+        <text font-size="8.5" font-family="'Space Mono', monospace"
+              fill="#e0e0e0" letter-spacing="1.8">
+          <textPath href="#circlePath">
+            betrayal • regret • 2026 • betrayal • regret • 2026 •
+          </textPath>
+        </text>
+      </svg>
+    </div>
+
+    <!-- Bottom-right: audio toggle -->
+    <div id="bottom-right-audio">
+      <button id="audio-toggle-btn" title="Toggle audio">🔊</button>
+    </div>
+
+  </div><!-- /#ui-layer -->
+
+  <!-- ═══════════════════════════════════════════════════════════
+       SCROLLABLE WRAPPER
+  ════════════════════════════════════════════════════════════ -->
+  <div id="scroll-wrapper">
+
+    <!-- ─────────────────────────────────────────────────────────
+         SECTION 1 — INTRO HERO  (100vh, clean minimalist)
+    ──────────────────────────────────────────────────────────── -->
+    <section id="intro-hero">
+
+      <!-- Subtle top-left wordmark -->
+      <div id="intro-wordmark">her.</div>
+
+      <!-- Centered content -->
+      <div id="intro-center">
+
+        <!-- Image / video placeholder -->
+        <div id="intro-media-frame">
+          <!--
+            Drop your image or video of her here.
+            Example:
+              <img src="assets/images/her.jpg" alt="her" />
+              <video src="assets/video/her.mp4" autoplay muted loop playsinline></video>
+          -->
+          <div id="intro-media-placeholder">
+            <span class="placeholder-cross">✕</span>
+          </div>
+        </div>
+
+        <!-- Typography -->
+        <div id="intro-text">
+          <h1 id="intro-headline">how i see her</h1>
+          <p id="intro-subtext">
+            not the way she wanted to be seen.<br />
+            but the way she actually was.
+          </p>
+        </div>
+
+      </div><!-- /#intro-center -->
+
+      <!-- Scroll cue -->
+      <div id="intro-scroll-cue">
+        <span>scroll</span>
+        <div id="scroll-line"></div>
+      </div>
+
+    </section><!-- /#intro-hero -->
+
+    <!-- ─────────────────────────────────────────────────────────
+         SECTION 2 — 3D SPIRAL GALLERY
+         Three.js canvas + scroll-driven rotation
+    ──────────────────────────────────────────────────────────── -->
+    <section id="gallery-section">
 
       <!--
-        ── Content Overlay ──────────────────────────────────────────────────
-        Inject your Stitch UI components inside the semantic tags below.
-        These tags are intentionally left empty.
-
-        z-index: 10  →  sits above the canvas layer.
-        pointer-events are handled in style.css.
+        Three.js renders into this canvas.
+        js/main.js calls initThreeJSSpiral() targeting #scroll-canvas.
+        Do NOT change this ID.
       -->
-      <div id="content-overlay">
+      <canvas id="scroll-canvas"></canvas>
 
-        <!-- ① Navigation / header region -->
-        <header id="site-header"></header>
+      <!-- Overlay text that fades in once gallery is in view -->
+      <div id="gallery-overlay-text">
+        <span class="gallery-label">the spiral</span>
+      </div>
 
-        <!-- ② Hero / above-the-fold content region -->
-        <main id="hero-content"></main>
+    </section><!-- /#gallery-section -->
 
-        <!-- ③ Scroll-synced text / panels region -->
-        <article id="scroll-panels"></article>
+    <!-- ─────────────────────────────────────────────────────────
+         SECTION 3 — WHAT YOU DID  (Stitch vertical scroll)
+         Content extracted from stitch/what-you-did.html
+         and injected here so it lives inside the same scroll flow.
+    ──────────────────────────────────────────────────────────── -->
+    <section id="what-you-did-section">
 
-        <!-- ④ Footer / closing region -->
-        <footer id="site-footer"></footer>
+      <!--
+        Paste the inner <main> content from stitch/what-you-did.html here
+        when you are ready to integrate.
+        The stitch file is at: stitch/what-you-did.html
+        It includes all polygon blocks + 2 audio cards.
+      -->
+      <div id="wyd-placeholder">
+        <!-- stitch/what-you-did.html inner content goes here -->
+      </div>
 
-      </div><!-- /#content-overlay -->
+    </section><!-- /#what-you-did-section -->
 
-    </section><!-- /#page -->
+  </div><!-- /#scroll-wrapper -->
 
-    <!--
-      ───────────────────────────────────────────────────────────────────────
-      Additional page sections
-      ───────────────────────────────────────────────────────────────────────
-      Add more <section data-scroll-section> blocks here as needed.
-      Each section can be pinned individually via GSAP ScrollTrigger in
-      main.js.
-    -->
+  <!-- ═══════════════════════════════════════════════════════════
+       IMAGE CLICK MODAL  (from stitch/modal.html)
+  ════════════════════════════════════════════════════════════ -->
+  <div id="image-modal">
+    <div class="modal-inner">
+      <div class="modal-image-side">
+        <img id="modal-image" src="" alt="memory" />
+      </div>
+      <div class="modal-text-side">
+        <p id="modal-text">Context goes here…</p>
+      </div>
+    </div>
+    <button id="close-modal" aria-label="Close modal">✕</button>
+  </div>
 
-  </div><!-- /#main -->
+  <!-- ═══════════════════════════════════════════════════════════
+       SCRIPTS
+       Load order matters:
+         1. Three.js  — 3D engine
+         2. GSAP      — animation engine
+         3. ScrollTrigger — scroll plugin
+         4. canvas-scroll.js — (legacy frame animation, kept for reference)
+         5. main.js   — entry gate, Locomotive proxy, Three.js init, audio
+  ════════════════════════════════════════════════════════════ -->
 
-  <!-- ═══ Scripts ══════════════════════════════════════════════════════════ -->
+  <!-- Three.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-  <!-- Locomotive Scroll -->
-  <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.js"></script>
+  <!-- GSAP 3.12 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
-  <!-- GSAP core -->
-  <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"
-    integrity="sha512-cOH8ndwGgPo+K7pTvMrqYbmI8u8k6Sho3js0gOqVWTmQMlLIi6TbqGWRTpf1ga8ci9H3iPsvDLr4X7xwhC/+DQ=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-  ></script>
-
-  <!-- GSAP ScrollTrigger plugin -->
-  <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/ScrollTrigger.min.js"
-    integrity="sha512-AMl4wfwAmDM1lsQvVBBRHYENn1FR8cfOTpt8QVbb/P55mYOdahHD4LmHM1W55pNe3j/3od8ELzPf/8eNkkjISQ=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-  ></script>
-
-  <!--
-    canvas-scroll.js MUST come before main.js so the ScrollTrigger
-    animations are registered before the Locomotive proxy calls refresh().
-  -->
-  <script src="./js/canvas-scroll.js"></script>
   <script src="./js/main.js"></script>
 
 </body>

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Her — What You Did</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Courier Prime, Space Mono, Syne -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&amp;family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&amp;family=Syne:wght@400..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config injected from Design System -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        background: '#050505',
+                        text: '#e0e0e0',
+                        accent: '#8b0000',
+                        highlight: '#ff3333',
+                        surface: '#111111',
+                        'surface-alt': '#1a1a1a',
+                        muted: '#333333'
+                    },
+                    fontFamily: {
+                        headline: ["'Courier Prime'", "monospace"],
+                        display: ["'Courier Prime'", "monospace"],
+                        body: ["'Space Mono'", "monospace"],
+                        label: ["'Syne'", "sans-serif"]
+                    },
+                    spacing: {
+                        '5000': '5000px',
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Base styles */
+        body {
+            background-color: #050505;
+            color: #e0e0e0;
+            overflow-x: hidden;
+            font-family: 'Space Mono', monospace;
+        }
+
+        /* Scrollbar hiding for cleaner brutalist look */
+        ::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
+        }
+
+        /* Polygon Clip Paths for Evidence Blocks */
+        .clip-polygon-1 { clip-path: polygon(2% 0%, 98% 3%, 100% 95%, 0% 100%); }
+        .clip-polygon-2 { clip-path: polygon(0% 5%, 100% 0%, 95% 100%, 5% 98%); }
+        .clip-polygon-3 { clip-path: polygon(5% 0%, 95% 5%, 100% 95%, 0% 100%); }
+        .clip-polygon-4 { clip-path: polygon(0% 0%, 100% 5%, 98% 100%, 2% 95%); }
+        .clip-polygon-5 { clip-path: polygon(3% 2%, 97% 0%, 100% 98%, 0% 96%); }
+
+        /* Smooth transform transition for parallax */
+        .parallax-element {
+            transition: transform 0.1s ease-out;
+            will-change: transform;
+        }
+
+        /* Fixed Watermark */
+        .watermark-layer {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-5deg);
+            font-family: 'Courier Prime', monospace;
+            font-size: 25vw;
+            color: #8b0000;
+            opacity: 0.04;
+            z-index: 0;
+            pointer-events: none;
+            white-space: nowrap;
+            user-select: none;
+        }
+
+        /* Section Containers */
+        .section-container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            min-height: 5000px; /* Extremely long vertical scrolling */
+        }
+
+        /* Evidence Block Base */
+        .evidence-block {
+            position: absolute;
+            padding: 1rem 1.5rem;
+            max-width: 90vw;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-highlight selection:text-background min-h-[5000px]">
+<!-- Watermark Layer -->
+<div class="watermark-layer font-bold uppercase tracking-tighter">REGRET.</div>
+<!-- Main Scrolling Content -->
+<main class="section-container" id="parallax-container">
+<!-- Evidence Zone 1 (0px - 1500px) -->
+<div class="absolute w-full h-[1500px] top-0 left-0">
+<!-- Original 10 evidence blocks spread vertically -->
+<div class="evidence-block parallax-element bg-surface-alt clip-polygon-1 rotate-[3deg] text-text font-headline text-2xl" data-speed="0.05" style="top: 5%; left: 10%;">
+                you knew.
+            </div>
+<div class="evidence-block parallax-element bg-accent clip-polygon-2 -rotate-[2deg] text-background font-label font-bold uppercase text-3xl" data-speed="-0.03" style="top: 15%; right: 15%;">
+                I waited.
+            </div>
+<div class="evidence-block parallax-element bg-muted clip-polygon-3 rotate-[1deg] text-text font-body text-lg tracking-widest" data-speed="0.04" style="top: 25%; left: 20%;">
+                three missed calls
+            </div>
+<div class="evidence-block parallax-element bg-[#222222] clip-polygon-4 -rotate-[4deg] text-text font-headline italic text-4xl" data-speed="-0.06" style="top: 35%; right: 10%;">
+                she never came back
+            </div>
+<div class="evidence-block parallax-element bg-transparent border border-muted clip-polygon-5 rotate-[5deg] text-text font-body text-xl" data-speed="0.02" style="top: 40%; left: 30%;">
+                2:47 AM
+            </div>
+<div class="evidence-block parallax-element bg-accent clip-polygon-1 -rotate-[1deg] text-text font-label font-black lowercase text-xl max-w-sm" data-speed="-0.04" style="top: 50%; right: 25%;">
+                it was always going to end like this.
+            </div>
+<div class="evidence-block parallax-element bg-surface clip-polygon-2 rotate-[2deg] text-highlight font-headline font-bold text-3xl" data-speed="0.05" style="top: 55%; left: 15%;">
+                you chose silence.
+            </div>
+<div class="evidence-block parallax-element bg-[#1a1a1a] clip-polygon-3 -rotate-[3deg] text-text font-body tracking-[0.3em] text-sm" data-speed="-0.03" style="top: 65%; right: 20%;">
+                every single time
+            </div>
+<div class="evidence-block parallax-element bg-transparent clip-polygon-4 rotate-[1deg] text-text opacity-50 font-headline text-base" data-speed="0.06" style="top: 75%; left: 25%;">
+                i still have the voicemails
+            </div>
+<div class="evidence-block parallax-element bg-accent clip-polygon-5 -rotate-[5deg] text-background font-label font-extrabold uppercase text-5xl" data-speed="-0.08" style="top: 85%; right: 30%;">
+                you did this.
+            </div>
+</div>
+<!-- Audio Card 1 (at 1600px) -->
+<div class="absolute w-full flex justify-center px-4" style="top: 1600px;">
+<div class="w-full max-w-[680px] bg-surface rounded-none p-8 flex flex-col gap-6 relative border-l-4 border-accent shadow-2xl">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-headline text-[18px] text-text lowercase">the last message</h3>
+<p class="font-body text-xs text-muted mt-2 uppercase tracking-widest">Voicemail • 2026</p>
+</div>
+<div class="w-20 h-20 border border-accent flex items-center justify-center cursor-pointer hover:bg-surface-alt transition-colors group">
+<span class="material-symbols-outlined text-accent group-hover:text-highlight" style="font-size: 40px; font-variation-settings: 'FILL' 1;">play_arrow</span>
+</div>
+</div>
+<div class="mt-4">
+<div class="font-headline font-bold text-[72px] text-highlight leading-none mb-4">00:03</div>
+<div class="w-full bg-muted h-[3px] relative">
+<div class="absolute top-0 left-0 h-full bg-accent w-[22%]"></div>
+</div>
+<div class="flex justify-between text-xs font-body text-muted mt-2">
+<span>0:03</span>
+<span>0:58</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Evidence Zone 2 (2000px - 2800px) -->
+<div class="absolute w-full h-[800px] top-[2000px] left-0">
+<div class="evidence-block parallax-element bg-surface-alt clip-polygon-3 -rotate-[2deg] text-text font-headline font-bold italic text-[40px] leading-tight max-w-2xl" data-speed="0.04" style="top: 10%; left: 10%;">
+                Nothing would have happened if you had just said something.
+            </div>
+<div class="evidence-block parallax-element bg-accent text-background font-label font-black uppercase text-[60px] leading-none" data-speed="-0.05" style="top: 35%; right: 15%;">
+                but, you made a Choice
+            </div>
+<div class="evidence-block parallax-element bg-[#222222] text-text font-body font-bold text-[14px] px-4 py-2" data-speed="0.02" style="top: 55%; left: 25%;">
+                u made a choice
+            </div>
+<div class="evidence-block parallax-element border border-dashed border-accent text-text font-headline text-[28px] p-6" data-speed="-0.03" style="top: 70%; right: 20%;">
+                of protecting yourself
+            </div>
+<div class="evidence-block parallax-element bg-accent text-background font-label font-semibold text-[36px] leading-tight max-w-[500px] p-8" data-speed="0.06" style="top: 85%; left: 15%;">
+                then respecting me enough to make me know the truth.
+            </div>
+</div>
+<!-- Audio Card 2 (at 3200px) -->
+<div class="absolute w-full flex justify-center px-4" style="top: 3200px;">
+<div class="w-full max-w-[680px] bg-surface rounded-none p-8 flex flex-col gap-6 relative border-l-4 border-muted opacity-80 hover:opacity-100 transition-opacity">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-headline text-[18px] text-text lowercase">sent at 2:47am</h3>
+<p class="font-body text-xs text-muted mt-2 uppercase tracking-widest">Unplayed • 2026</p>
+</div>
+<div class="w-20 h-20 border border-muted flex items-center justify-center cursor-pointer hover:bg-surface-alt transition-colors group">
+<span class="material-symbols-outlined text-muted group-hover:text-text" style="font-size: 40px; font-variation-settings: 'FILL' 1;">play_arrow</span>
+</div>
+</div>
+<div class="mt-4">
+<div class="font-headline font-bold text-[72px] text-muted leading-none mb-4">00:58</div>
+<div class="w-full bg-muted h-[3px] relative">
+<div class="absolute top-0 left-0 h-full bg-accent w-[0%]"></div>
+</div>
+<div class="flex justify-between text-xs font-body text-muted mt-2">
+<span>0:00</span>
+<span>0:58</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Finale Zone (3800px - 4400px) -->
+<div class="absolute w-full h-[600px] top-[3800px] left-0 flex flex-col items-center justify-center gap-32">
+<div class="parallax-element bg-surface clip-polygon-3 text-text font-body text-xl p-8 uppercase" data-speed="0.02" style="letter-spacing: 0.4em;">
+                every single time
+            </div>
+<div class="parallax-element text-text font-headline text-[12px] opacity-40 lowercase" data-speed="-0.01">
+                i still have the voicemails
+            </div>
+<div class="parallax-element text-accent font-label font-black uppercase text-[100px] leading-none text-center w-full mt-32" data-speed="0.08">
+                you did this.
+            </div>
+</div>
+</main>
+<script>
+        // Parallax Effect Script
+        document.addEventListener('DOMContentLoaded', () => {
+            const parallaxElements = document.querySelectorAll('.parallax-element');
+            const container = document.getElementById('parallax-container');
+            
+            let mouseX = 0;
+            let mouseY = 0;
+            let targetX = 0;
+            let targetY = 0;
+            
+            // Track mouse movement
+            document.addEventListener('mousemove', (e) => {
+                mouseX = (e.clientX - window.innerWidth / 2);
+                mouseY = (e.clientY - window.innerHeight / 2);
+            });
+            
+            // Animation loop for smooth movement
+            function animate() {
+                // Ease towards target
+                targetX += (mouseX - targetX) * 0.1;
+                targetY += (mouseY - targetY) * 0.1;
+                
+                parallaxElements.forEach(el => {
+                    const speed = parseFloat(el.getAttribute('data-speed')) || 0.05;
+                    const x = targetX * speed;
+                    const y = targetY * speed;
+                    
+                    el.style.transform = `translate(${x}px, ${y}px)`;
+                });
+                
+                requestAnimationFrame(animate);
+            }
+            
+            animate();
+        });
+    </script>
+</body></html>
