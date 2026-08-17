@@ -231,6 +231,119 @@ function initThreeJSSpiral() {
 
 
 =========================================
+SECTION 2: 3D CLICKING, AUDIO LOGIC, & SCROLL TRANSITION
+=========================================
+
+--- [1] HTML Additions (Inside #main-content or below it) ---
+<!-- The "What You Did" Section (Appears after the 6000px canvas scroll) -->
+<section id="what-you-did-section" style="position: relative; z-index: 2; margin-top: 6000px; background: var(--bg-color); min-height: 100vh; padding: 50px;">
+    <!-- Your Stitch generated Typography Polygons and Audio Cards go here -->
+    
+    <!-- Example Audio Card Structure -->
+    <div class="audio-card" data-audio-id="voice-note-1">
+        <button class="play-btn">▶</button>
+        <span>Audio Message 1</span>
+        <audio id="voice-note-1" src="assets/audio/voice1.mp3"></audio>
+    </div>
+</section>
+
+<!-- The Image Modal (Hidden by default) -->
+<div id="image-modal" style="display: none; position: fixed; z-index: 9999; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.9);">
+    <div style="display: flex; width: 80%; height: 80%; margin: 5% auto;">
+        <img id="modal-image" src="" style="width: 50%; object-fit: contain;">
+        <div id="modal-text" style="width: 50%; padding: 40px; color: white;">Context goes here...</div>
+    </div>
+    <button id="close-modal" style="position: absolute; top: 20px; right: 20px; color: white; background: none; border: none; font-size: 24px; cursor: pointer;">X</button>
+</div>
+
+--- [2] JS Additions (Inside main.js) ---
+
+// 1. Audio Context Switching (Spotify Cards)
+const bgAudio = document.getElementById('bg-audio');
+const audioCards = document.querySelectorAll('.audio-card');
+
+audioCards.forEach(card => {
+    const playBtn = card.querySelector('.play-btn');
+    const track = card.querySelector('audio');
+
+    playBtn.addEventListener('click', () => {
+        if (track.paused) {
+            // Pause all other tracks and background music
+            document.querySelectorAll('.audio-card audio').forEach(a => a.pause());
+            bgAudio.pause();
+            
+            track.play();
+            playBtn.innerText = "⏸";
+        } else {
+            track.pause();
+            playBtn.innerText = "▶";
+            bgAudio.play(); // Resume background music
+        }
+    });
+
+    // When track ends naturally, resume background music
+    track.addEventListener('ended', () => {
+        playBtn.innerText = "▶";
+        bgAudio.play();
+    });
+});
+
+// 2. Three.js Raycaster (Clicking the Spiral Images)
+// Add this INSIDE your initThreeJSSpiral() function:
+
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+
+window.addEventListener('click', (event) => {
+    // Convert mouse position to normalized device coordinates (-1 to +1)
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+    raycaster.setFromCamera(mouse, camera);
+
+    // Calculate objects intersecting the picking ray
+    const intersects = raycaster.intersectObjects(spiralGroup.children);
+
+    if (intersects.length > 0) {
+        // Image was clicked!
+        const clickedPlane = intersects[0].object;
+        
+        // Open Modal
+        document.getElementById('image-modal').style.display = 'block';
+        
+        // Pass the texture map source to the modal image
+        if(clickedPlane.material.map) {
+             document.getElementById('modal-image').src = clickedPlane.material.map.image.src;
+        }
+        
+        // Here you can use clickedPlane.uuid or an assigned ID to change the modal text dynamically
+        document.getElementById('modal-text').innerText = "This is the context for this specific image.";
+    }
+});
+
+// Close Modal Logic
+document.getElementById('close-modal').addEventListener('click', () => {
+    document.getElementById('image-modal').style.display = 'none';
+});
+
+--- [3] CSS Additions (For the Polygons) ---
+/* Example Polygon Classes - Apply these to your text blocks */
+.poly-shape-1 {
+    clip-path: polygon(0% 15%, 100% 0%, 95% 100%, 5% 90%);
+    background: #8b0000; /* Dark Red */
+    color: #ffffff;
+    padding: 20px;
+    display: inline-block;
+}
+.poly-shape-2 {
+    clip-path: polygon(10% 0, 100% 10%, 90% 100%, 0% 100%);
+    background: #222222; /* Dark Grey */
+    color: #ff3333; /* Red Text */
+    padding: 15px;
+    display: inline-block;
+}
+
+=========================================
 INTEGRATION PROCESS: ADDING YOUR CONTENT
 =========================================
 

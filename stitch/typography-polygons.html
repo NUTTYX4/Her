@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>What You Did - her.</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&amp;family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&amp;family=Syne:wght@400..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        background: '#050505',
+                        surface: {
+                            DEFAULT: '#111111',
+                            raised: '#1a1a1a',
+                            muted: '#222222'
+                        },
+                        text: {
+                            DEFAULT: '#e0e0e0',
+                            muted: '#333333',
+                            bright: '#ffffff'
+                        },
+                        danger: {
+                            DEFAULT: '#8b0000',
+                            hover: '#ff3333'
+                        }
+                    },
+                    fontFamily: {
+                        headline: ["'Courier Prime'", 'monospace'],
+                        body: ["'Space Mono'", 'monospace'],
+                        label: ["'Syne'", 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        .clip-polygon-1 { clip-path: polygon(0% 15%, 100% 0%, 95% 100%, 5% 90%); }
+        .clip-polygon-2 { clip-path: polygon(10% 0%, 100% 10%, 90% 100%, 0% 90%); }
+        .clip-polygon-3 { clip-path: polygon(0% 0%, 95% 5%, 100% 95%, 5% 100%); }
+        .clip-polygon-4 { clip-path: polygon(5% 10%, 100% 0%, 90% 90%, 0% 100%); }
+        .clip-polygon-5 { clip-path: polygon(0% 5%, 95% 0%, 100% 100%, 5% 95%); }
+        
+        .evidence-block {
+            position: absolute;
+            mix-blend-mode: normal;
+            transition: transform 0.3s ease;
+        }
+        
+        .evidence-block:hover {
+            transform: scale(1.02) translateY(-2px);
+            z-index: 50;
+        }
+
+        .watermark-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-5deg);
+            white-space: nowrap;
+            pointer-events: none;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body class="bg-background text-text font-body min-h-screen overflow-x-hidden selection:bg-danger selection:text-text-bright">
+<!-- Shared Component: TopAppBar -->
+<nav class="fixed top-0 w-full z-[999] bg-[#050505] flex justify-between items-center px-6 py-4 w-full border-b border-[#333333]">
+<div class="font-['Courier_Prime'] font-bold text-2xl lowercase text-[#e0e0e0]">her</div>
+<div class="hidden md:flex gap-8">
+<!-- Simulated Nav Items for Web -->
+<a class="font-['Courier_Prime'] uppercase tracking-widest text-sm text-[#333333] hover:text-[#ff3333] transition-colors duration-300" href="#">evidence</a>
+<a class="font-['Courier_Prime'] uppercase tracking-widest text-sm text-[#ff3333] border-b border-[#ff3333] hover:text-[#ff3333] transition-colors duration-300" href="#">regret</a>
+<a class="font-['Courier_Prime'] uppercase tracking-widest text-sm text-[#333333] hover:text-[#ff3333] transition-colors duration-300" href="#">closure</a>
+</div>
+<button class="text-[#8b0000] cursor-crosshair active:opacity-50 hover:text-[#ff3333] transition-colors duration-300 p-2">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</nav>
+<!-- Main Content Section: What You Did -->
+<main class="relative w-full h-[1536px] bg-background pt-24 overflow-hidden" id="evidence-floor">
+<!-- Massive Watermark -->
+<div class="watermark-bg font-headline text-danger opacity-[0.08] text-[20vw] font-bold leading-none tracking-tighter select-none">
+            REGRET.
+        </div>
+<!-- Scattered Evidence Blocks -->
+<div class="absolute inset-0 z-10 p-8 w-full h-full">
+<!-- Block 1 -->
+<div class="evidence-block clip-polygon-1 bg-surface-raised text-text p-6 md:p-12" style="top: 15%; left: 10%; transform: rotate(-2deg);">
+<p class="font-headline text-2xl md:text-5xl font-bold lowercase tracking-tight">
+                    you knew.
+                </p>
+</div>
+<!-- Block 2 -->
+<div class="evidence-block clip-polygon-2 bg-danger text-text-bright p-4 md:p-8" style="top: 30%; right: 15%; transform: rotate(3deg);">
+<p class="font-body text-lg md:text-2xl font-bold italic">
+                    I waited.
+                </p>
+</div>
+<!-- Block 3 -->
+<div class="evidence-block clip-polygon-3 bg-surface-muted text-text p-3 md:p-5 border-l-4 border-danger" style="top: 45%; left: 5%; transform: rotate(-1deg);">
+<p class="font-label text-sm md:text-xl font-bold uppercase tracking-widest">
+                    three missed calls
+                </p>
+</div>
+<!-- Block 4 -->
+<div class="evidence-block clip-polygon-4 bg-surface-raised text-text p-8 md:p-16 max-w-sm" style="top: 50%; left: 40%; transform: rotate(-3deg);">
+<p class="font-headline text-3xl md:text-6xl font-bold leading-none">
+                    she never came back
+                </p>
+</div>
+<!-- Block 5 -->
+<div class="evidence-block clip-polygon-5 bg-danger text-text-bright px-8 py-2" style="top: 20%; left: 60%; transform: rotate(2deg);">
+<p class="font-body text-4xl md:text-[120px] font-black leading-none opacity-80">
+                    2:47 AM
+                </p>
+</div>
+<!-- Block 6 -->
+<div class="evidence-block clip-polygon-2 bg-surface-muted text-text p-6 md:p-10 max-w-md" style="top: 70%; right: 10%; transform: rotate(1deg);">
+<p class="font-label text-xl md:text-4xl font-semibold leading-tight text-justify">
+                    it was always going to end like this.
+                </p>
+</div>
+<!-- Block 7 -->
+<div class="evidence-block clip-polygon-1 bg-surface-raised text-text p-4 md:p-6" style="top: 85%; left: 20%; transform: rotate(-2deg);">
+<p class="font-headline text-lg md:text-3xl line-through decoration-danger decoration-2 md:decoration-4">
+                    you chose silence.
+                </p>
+</div>
+<!-- Block 8 -->
+<div class="evidence-block clip-polygon-3 bg-danger text-text-bright p-3 md:p-5" style="top: 10%; right: 30%; transform: rotate(-1deg);">
+<p class="font-body text-xs md:text-sm tracking-[0.2em] uppercase">
+                    every single time
+                </p>
+</div>
+<!-- Block 9 -->
+<div class="evidence-block clip-polygon-4 bg-surface-muted text-text p-5 md:p-8" style="top: 65%; left: 15%; transform: rotate(2deg);">
+<p class="font-headline text-[10px] md:text-[14px] opacity-70">
+                    i still have the voicemails
+                </p>
+</div>
+<!-- Block 10 -->
+<div class="evidence-block clip-polygon-5 bg-background text-danger p-8 md:p-12 border-2 border-danger border-dashed" style="bottom: 5%; right: 35%; transform: rotate(-3deg);">
+<h1 class="font-label text-5xl md:text-[80px] font-black uppercase tracking-tighter">
+                    you did this.
+                </h1>
+</div>
+</div>
+</main>
+<!-- Shared Component: Footer -->
+<footer class="bg-[#050505] flex flex-col md:flex-row justify-between items-center p-8 w-full border-t border-[#333333] relative z-[999]">
+<div class="font-['Syne'] font-black uppercase text-[#8b0000] mb-4 md:mb-0">
+            her
+        </div>
+<div class="flex gap-4 md:gap-8 opacity-70 hover:opacity-100 transition-opacity">
+<a class="font-['Space_Mono'] lowercase text-[10px] tracking-tighter text-[#333333] hover:text-[#8b0000] transition-colors" href="#">terms</a>
+<a class="font-['Space_Mono'] lowercase text-[10px] tracking-tighter text-[#333333] hover:text-[#8b0000] transition-colors" href="#">privacy</a>
+<a class="font-['Space_Mono'] lowercase text-[10px] tracking-tighter text-[#333333] hover:text-[#8b0000] transition-colors" href="#">contact</a>
+</div>
+<div class="font-['Space_Mono'] lowercase text-[10px] tracking-tighter text-[#333333] mt-4 md:mt-0 text-center md:text-right">
+            © 2026 suppressed emotion. all rights redacted.
+        </div>
+</footer>
+<script>
+        // Subtle interaction: Parallax effect on mouse move for evidence blocks
+        document.addEventListener('mousemove', (e) => {
+            const blocks = document.querySelectorAll('.evidence-block');
+            const x = e.clientX / window.innerWidth - 0.5;
+            const y = e.clientY / window.innerHeight - 0.5;
+
+            blocks.forEach((block, index) => {
+                const speed = (index % 3) + 1;
+                const tx = x * speed * 20;
+                const ty = y * speed * 20;
+                
+                // Get original rotation from inline style
+                const style = block.getAttribute('style');
+                let rotation = 'rotate(0deg)';
+                if(style) {
+                    const match = style.match(/rotate\((.*?)\)/);
+                    if(match) rotation = `rotate(${match[1]})`;
+                }
+
+                block.style.transform = `translate(${tx}px, ${ty}px) ${rotation}`;
+            });
+            
+            // Subtle watermark movement
+            const watermark = document.querySelector('.watermark-bg');
+            if(watermark) {
+                watermark.style.transform = `translate(calc(-50% + ${x * 50}px), calc(-50% + ${y * 50}px)) rotate(-5deg)`;
+            }
+        });
+    </script>
+</body></html>
