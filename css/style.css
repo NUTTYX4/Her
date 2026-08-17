@@ -1,0 +1,86 @@
+/*
+ * style.css
+ * ─────────────────────────────────────────────────────────────────────────────
+ * MINIMAL styles required for the full-screen canvas scroll effect.
+ *
+ * Rules:
+ *   • No UI colours, typography, or custom component styles.
+ *   • No placeholder content styles.
+ *   • Only what is structurally necessary for the canvas pin / scroll to work.
+ *
+ * Custom UI injected by Stitch should add its own stylesheet or append rules
+ * after this file.
+ * ─────────────────────────────────────────────────────────────────────────────
+ */
+
+/* ── Reset ──────────────────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ── Full-viewport base ─────────────────────────────────────────────────────── */
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* Locomotive Scroll controls scrolling */
+}
+
+/* ── Locomotive Scroll container ────────────────────────────────────────────── */
+/*
+ * #main must be position:relative and overflow:hidden so Locomotive Scroll can
+ * measure and transform its children correctly.
+ */
+#main {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Canvas scroll section ──────────────────────────────────────────────────── */
+/*
+ * #page is the tall scroll-distance container.
+ * Its height (100vh) is correct here; GSAP ScrollTrigger's `end: "600% top"`
+ * creates virtual scroll distance via the pin spacer it inserts automatically.
+ */
+#page {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* ── Canvas element ─────────────────────────────────────────────────────────── */
+/*
+ * position:absolute fills #page; z-index:0 keeps it behind the overlay layer.
+ * GSAP's pin mechanism will move it to position:fixed during the pin window.
+ */
+#canvas-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 0;
+}
+
+/* ── Content overlay ────────────────────────────────────────────────────────── */
+/*
+ * #content-overlay sits above the canvas on every page section.
+ * Stitch will inject custom UI markup inside this element.
+ */
+#content-overlay {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  pointer-events: none; /* Let scroll events fall through to Locomotive Scroll */
+}
+
+#content-overlay > * {
+  pointer-events: auto; /* Re-enable clicks on actual child elements */
+}

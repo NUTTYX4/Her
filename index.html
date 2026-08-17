@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Her</title>
+
+  <!-- Locomotive Scroll CSS (required for smooth scroll layout) -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.css"
+  />
+
+  <!-- Project styles (structural only – no UI colours) -->
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+
+<body>
+
+  <!--
+    ═══════════════════════════════════════════════════════════════════════════
+    #main  –  Locomotive Scroll root
+    ═══════════════════════════════════════════════════════════════════════════
+    All scrollable content lives inside this element.
+    Locomotive Scroll uses it as the virtual scroll container.
+  -->
+  <div id="main" data-scroll-container>
+
+    <!--
+      ───────────────────────────────────────────────────────────────────────
+      #page  –  Canvas scroll section
+      ───────────────────────────────────────────────────────────────────────
+      The canvas is pinned here for the duration of the frame animation.
+      GSAP creates a pin-spacer automatically; do NOT add extra height here.
+    -->
+    <section id="page" data-scroll-section>
+
+      <!-- Full-screen canvas background – driven by canvas-scroll.js -->
+      <canvas id="canvas-bg"></canvas>
+
+      <!--
+        ── Content Overlay ──────────────────────────────────────────────────
+        Inject your Stitch UI components inside the semantic tags below.
+        These tags are intentionally left empty.
+
+        z-index: 10  →  sits above the canvas layer.
+        pointer-events are handled in style.css.
+      -->
+      <div id="content-overlay">
+
+        <!-- ① Navigation / header region -->
+        <header id="site-header"></header>
+
+        <!-- ② Hero / above-the-fold content region -->
+        <main id="hero-content"></main>
+
+        <!-- ③ Scroll-synced text / panels region -->
+        <article id="scroll-panels"></article>
+
+        <!-- ④ Footer / closing region -->
+        <footer id="site-footer"></footer>
+
+      </div><!-- /#content-overlay -->
+
+    </section><!-- /#page -->
+
+    <!--
+      ───────────────────────────────────────────────────────────────────────
+      Additional page sections
+      ───────────────────────────────────────────────────────────────────────
+      Add more <section data-scroll-section> blocks here as needed.
+      Each section can be pinned individually via GSAP ScrollTrigger in
+      main.js.
+    -->
+
+  </div><!-- /#main -->
+
+  <!-- ═══ Scripts ══════════════════════════════════════════════════════════ -->
+
+  <!-- Locomotive Scroll -->
+  <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.js"></script>
+
+  <!-- GSAP core -->
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"
+    integrity="sha512-cOH8ndwGgPo+K7pTvMrqYbmI8u8k6Sho3js0gOqVWTmQMlLIi6TbqGWRTpf1ga8ci9H3iPsvDLr4X7xwhC/+DQ=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
+
+  <!-- GSAP ScrollTrigger plugin -->
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/ScrollTrigger.min.js"
+    integrity="sha512-AMl4wfwAmDM1lsQvVBBRHYENn1FR8cfOTpt8QVbb/P55mYOdahHD4LmHM1W55pNe3j/3od8ELzPf/8eNkkjISQ=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
+
+  <!--
+    canvas-scroll.js MUST come before main.js so the ScrollTrigger
+    animations are registered before the Locomotive proxy calls refresh().
+  -->
+  <script src="./js/canvas-scroll.js"></script>
+  <script src="./js/main.js"></script>
+
+</body>
+</html>
